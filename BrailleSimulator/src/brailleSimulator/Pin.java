@@ -12,8 +12,8 @@ public class Pin {
 	
 	/**
 	 * Sets the pin to a certain state.
-	 * @param state a boolean value that represent what the pin state 
-	 * should be set to
+	 * @param state a boolean value that represent what the pin 
+	 * state should be set to
 	 */
 	public void setState(boolean state){
 		this.state = state;
