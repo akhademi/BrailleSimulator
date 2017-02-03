@@ -1,9 +1,8 @@
 package brailleSimulator;
 
 public class BrailleClient extends Braille{
-		public SimView view;
-		private static int instances = 0;
-	
+		private SimView view;
+
 		
 	/**
 	 * Create a braille simulator with a GUI. It is initialized
@@ -23,7 +22,6 @@ public class BrailleClient extends Braille{
 		view = new SimView(this);
 		view.pack();
 		view.setVisible(true);
-		BrailleClient.instances = 1;
 	}
 	
 	/**
@@ -38,21 +36,16 @@ public class BrailleClient extends Braille{
 	 * Note eight pins are available, but this translation 
 	 * uses six pins English Braille. The message will not be translate and stored 
 	 * (unsuccessful) if the length exceeds the number of available cells or 
-	 * does not consist of alphanumeric characters or space.
+	 * does not consist of alphanumeric characters or space where alphanumeric is defined
+	 * as numbers or the alphabet from a-z and A-Z.
 	 * @param message is the string that is to be translated into braille
 	 * and stored
-	 * @return a boolean value true if boolean translation, 
-	 * storage and display on GUI is successful and false if unsuccessful
+	 * @throws InvalidInputException if message length exceeds numCells or if message
+	 * does not only consist of alphanumeric characters or space
 	 */
-	public boolean translate(String message){
-		boolean update = super.translate(message);
-		if (update){
-			this.update(update);
-		}
-		else{
-			view.messageError();
-		}
-		return update;
+	public void translate(String message) throws InvalidInputException{
+		super.translate(message);
+		this.update();
 	}
 	
 	/**
@@ -61,7 +54,7 @@ public class BrailleClient extends Braille{
 	 */
 	public void clearAllCells(){
 		super.clearAllCells();
-		this.update(true);
+		this.update();
 	}
 	
 	
@@ -74,28 +67,19 @@ public class BrailleClient extends Braille{
 	 * @param pin determines which pin
 	 * @param state determine what the pin should be set to with 
 	 * 1 representing raised and 0 not raised
-	 * @return boolean true if pin is set successfully (and GUI is
-	 * updated and false if not
+	 * @throws InvalidInputException if cell (number) is greater than numCells or
+	 * is less than or equal to 0 or if pin (number) exceeds 8 or is equal or less
+	 * than 0
 	 */
-	public boolean setCellPin(int cell, int pin, boolean state){
-		boolean update = super.setCellPin(cell, pin, state);
-		this.update(true);
-		return update;
+	public void setCellPin(int cell, int pin, boolean state) throws InvalidInputException{
+		super.setCellPin(cell, pin, state);
+		this.update();
 	}
 	
-	private void update(boolean update){
-		if (update){
-			view.drawBraille(super.getCellConfig());
-		}
+	private void update(){
+		view.drawBraille(super.getCellConfig());
 	}
 	
-	/**
-	 * Return number of BrailleClient instances.
-	 * @return integer representing number of BrailleClient instances
-	 */
-	public static int getInstances() {
-		return instances;
-	}
 	
 	/**
 	 * Receives an integer representing which button was pressed and return a string 
@@ -113,5 +97,14 @@ public class BrailleClient extends Braille{
 			view.setButtonEvent(buttonMessage);
 		}
 		return buttonMessage;
+	}
+	
+	/**
+	 * NOTE: THIS IS NOT PART OF THE API/JAVADOC
+	 * This method was put here for the JUnit Testing to work
+	 * @return the view
+	 */
+	public SimView getView(){
+		return view;
 	}
 }

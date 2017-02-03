@@ -50,118 +50,119 @@ public class Braille {
 	 * below the top right and so on. Note eight pins are available, but this translation 
 	 * uses six pins English Braille. The message will not be translate and stored 
 	 * (unsuccessful) if the length exceeds the number of available cells or 
-	 * does not consist of alphanumeric characters or space.
+	 * does not consist of alphanumeric characters or space where alphanumeric is defined
+	 * as numbers or the alphabet from a-z and A-Z.
 	 * @param message is the string that is to be translated into braille
 	 * and stored
-	 * @return a boolean value true if boolean translation 
-	 * and storage is successful and false if unsuccessful
+	 * @throws InvalidInputException if message length exceeds numCells or if message
+	 * does not only consist of alphanumeric characters or space
 	 */
-	public boolean translate(String message){
-		boolean error = false;
+	public void translate(String message) throws InvalidInputException{
 		
 		if(message.length() > numCells){
-			error = true;
+			throw new InvalidInputException("Message length exceeds number of cells");
 		}
 		
 		for (int i = 0; i<message.length();i++){
 			if (!((message.substring(i,i+1).matches("[A-Z0-9a-z\\s]")))){
-				error = true;
+				throw new InvalidInputException("Message contains invalid symbols");
 			}
 		}
-		if (error){
-			return false;
-		}
-		else{
-			setCellPins(message);
-			return true;
-		}
+	
+		setCellPins(message);
+		
 	}
 	
 	private void setCellPins(String message){
 		this.clearAllCells();
-		for (int i = 0; i<message.length();i++){
-			if (message.charAt(i)== 'a' || message.charAt(i)== 'A' || message.charAt(i)== '1'){
-				cells[i].setPinConfig("10000000");
-			}
-			else if (message.charAt(i)== 'b' || message.charAt(i)== 'B'|| message.charAt(i)== '2' ){
-				cells[i].setPinConfig("10100000");
-			}
-			else if (message.charAt(i)== 'c' || message.charAt(i)== 'C'|| message.charAt(i)== '3' ){
-				cells[i].setPinConfig("11000000");
-			}
-			else if (message.charAt(i)== 'd' || message.charAt(i)== 'D'|| message.charAt(i)== '4' ){
-				cells[i].setPinConfig("11010000");
-			}
-			else if (message.charAt(i)== 'e' || message.charAt(i)== 'E'|| message.charAt(i)== '5' ){
-				cells[i].setPinConfig("10010000");
-			}
-			else if (message.charAt(i)== 'f' || message.charAt(i)== 'F'|| message.charAt(i)== '6' ){
-				cells[i].setPinConfig("11100000");
-			}
-			else if (message.charAt(i)== 'g' || message.charAt(i)== 'G'|| message.charAt(i)== '7' ){
-				cells[i].setPinConfig("11110000");
-			}
-			else if (message.charAt(i)== 'h' || message.charAt(i)== 'H'|| message.charAt(i)== '8' ){
-				cells[i].setPinConfig("10110000");
-			}
-			else if (message.charAt(i)== 'i' || message.charAt(i)== 'I'|| message.charAt(i)== '9' ){
-				cells[i].setPinConfig("01100000");
-			}
-			else if (message.charAt(i)== 'j' || message.charAt(i)== 'J'|| message.charAt(i)== '0' ){
-				cells[i].setPinConfig("01110000");
-			}
-			else if (message.charAt(i)== 'k' || message.charAt(i)== 'K' ){
-				cells[i].setPinConfig("10001000");
-			}
-			else if (message.charAt(i)== 'l' || message.charAt(i)== 'L' ){
-				cells[i].setPinConfig("10101000");
-			}
-			else if (message.charAt(i)== 'm' || message.charAt(i)== 'M' ){
-				cells[i].setPinConfig("11001000");
-			}
-			else if (message.charAt(i)== 'n' || message.charAt(i)== 'N' ){
-				cells[i].setPinConfig("11011000");
-			}
-			else if (message.charAt(i)== 'o' || message.charAt(i)== 'O' ){
-				cells[i].setPinConfig("10011000");
-			}
-			else if (message.charAt(i)== 'p' || message.charAt(i)== 'P' ){
-				cells[i].setPinConfig("11101000");
-			}
-			else if (message.charAt(i)== 'q' || message.charAt(i)== 'Q' ){
-				cells[i].setPinConfig("11111000");
-			}
-			else if (message.charAt(i)== 'r' || message.charAt(i)== 'R' ){
-				cells[i].setPinConfig("10111000");
-			}
-			else if (message.charAt(i)== 's' || message.charAt(i)== 'S' ){
-				cells[i].setPinConfig("01101000");
-			}
-			else if (message.charAt(i)== 't' || message.charAt(i)== 'T' ){
-				cells[i].setPinConfig("01111000");
-			}
-			else if (message.charAt(i)== 'u' || message.charAt(i)== 'U' ){
-				cells[i].setPinConfig("10001100");
-			}
-			else if (message.charAt(i)== 'v' || message.charAt(i)== 'V' ){
-				cells[i].setPinConfig("10101100");
-			}
-			else if (message.charAt(i)== 'w' || message.charAt(i)== 'W' ){
-				cells[i].setPinConfig("01110100");
-			}
-			else if (message.charAt(i)== 'x' || message.charAt(i)== 'X' ){
-				cells[i].setPinConfig("11001100");
-			}
-			else if (message.charAt(i)== 'y' || message.charAt(i)== 'Y' ){
-				cells[i].setPinConfig("11011100");
-			}
-			else if (message.charAt(i)== 'z' || message.charAt(i)== 'Z' ){
-				cells[i].setPinConfig("10011100");
-			}
-			else{
-				cells[i].setPinConfig("00000000");
+		try{
+			for (int i = 0; i<message.length();i++){
+				if (message.charAt(i)== 'a' || message.charAt(i)== 'A' || message.charAt(i)== '1'){
+					cells[i].setPinConfig("10000000");
+				}
+				else if (message.charAt(i)== 'b' || message.charAt(i)== 'B'|| message.charAt(i)== '2' ){
+					cells[i].setPinConfig("10100000");
+				}
+				else if (message.charAt(i)== 'c' || message.charAt(i)== 'C'|| message.charAt(i)== '3' ){
+					cells[i].setPinConfig("11000000");
+				}
+				else if (message.charAt(i)== 'd' || message.charAt(i)== 'D'|| message.charAt(i)== '4' ){
+					cells[i].setPinConfig("11010000");
+				}
+				else if (message.charAt(i)== 'e' || message.charAt(i)== 'E'|| message.charAt(i)== '5' ){
+					cells[i].setPinConfig("10010000");
+				}
+				else if (message.charAt(i)== 'f' || message.charAt(i)== 'F'|| message.charAt(i)== '6' ){
+					cells[i].setPinConfig("11100000");
+				}
+				else if (message.charAt(i)== 'g' || message.charAt(i)== 'G'|| message.charAt(i)== '7' ){
+					cells[i].setPinConfig("11110000");
+				}
+				else if (message.charAt(i)== 'h' || message.charAt(i)== 'H'|| message.charAt(i)== '8' ){
+					cells[i].setPinConfig("10110000");
+				}
+				else if (message.charAt(i)== 'i' || message.charAt(i)== 'I'|| message.charAt(i)== '9' ){
+					cells[i].setPinConfig("01100000");
+				}
+				else if (message.charAt(i)== 'j' || message.charAt(i)== 'J'|| message.charAt(i)== '0' ){
+					cells[i].setPinConfig("01110000");
+				}
+				else if (message.charAt(i)== 'k' || message.charAt(i)== 'K' ){
+					cells[i].setPinConfig("10001000");
+				}
+				else if (message.charAt(i)== 'l' || message.charAt(i)== 'L' ){
+					cells[i].setPinConfig("10101000");
+				}
+				else if (message.charAt(i)== 'm' || message.charAt(i)== 'M' ){
+					cells[i].setPinConfig("11001000");
+				}
+				else if (message.charAt(i)== 'n' || message.charAt(i)== 'N' ){
+					cells[i].setPinConfig("11011000");
+				}
+				else if (message.charAt(i)== 'o' || message.charAt(i)== 'O' ){
+					cells[i].setPinConfig("10011000");
+				}
+				else if (message.charAt(i)== 'p' || message.charAt(i)== 'P' ){
+					cells[i].setPinConfig("11101000");
+				}
+				else if (message.charAt(i)== 'q' || message.charAt(i)== 'Q' ){
+					cells[i].setPinConfig("11111000");
+				}
+				else if (message.charAt(i)== 'r' || message.charAt(i)== 'R' ){
+					cells[i].setPinConfig("10111000");
+				}
+				else if (message.charAt(i)== 's' || message.charAt(i)== 'S' ){
+					cells[i].setPinConfig("01101000");
+				}
+				else if (message.charAt(i)== 't' || message.charAt(i)== 'T' ){
+					cells[i].setPinConfig("01111000");
+				}
+				else if (message.charAt(i)== 'u' || message.charAt(i)== 'U' ){
+					cells[i].setPinConfig("10001100");
+				}
+				else if (message.charAt(i)== 'v' || message.charAt(i)== 'V' ){
+					cells[i].setPinConfig("10101100");
+				}
+				else if (message.charAt(i)== 'w' || message.charAt(i)== 'W' ){
+					cells[i].setPinConfig("01110100");
+				}
+				else if (message.charAt(i)== 'x' || message.charAt(i)== 'X' ){
+					cells[i].setPinConfig("11001100");
+				}
+				else if (message.charAt(i)== 'y' || message.charAt(i)== 'Y' ){
+					cells[i].setPinConfig("11011100");
+				}
+				else if (message.charAt(i)== 'z' || message.charAt(i)== 'Z' ){
+					cells[i].setPinConfig("10011100");
+				}
+				else{
+					cells[i].setPinConfig("00000000");
+				}
 			}
 		}
+		catch (InvalidInputException e1) {
+		}
+		
 	}
 	
 	/**
@@ -210,7 +211,10 @@ public class Braille {
 	 */
 	public void clearAllCells(){
 		for (int i=0;i < numCells; i++){
-			cells[i].setPinConfig("00000000");
+			try {
+				cells[i].setPinConfig("00000000");
+			} catch (InvalidInputException e) {
+			}
 		}
 	}
 	
@@ -224,12 +228,15 @@ public class Braille {
 	 * @param state determine what the pin should be set to with 
 	 * 1 representing raised and 0 not raised
 	 * @return boolean true if pin is set successfully and false if not
+	 * @throws InvalidInputException if cell (number) is greater than numCells or
+	 * is less than or equal to 0 or if pin (number) exceeds 8 or is equal or less
+	 * than 0
 	 */
-	public boolean setCellPin(int cell, int pin, boolean state){
+	public void setCellPin(int cell, int pin, boolean state) throws InvalidInputException{
 		if(cell>numCells || cell <= 0){
-			return false;
+			throw new InvalidInputException("Invalid cell number");
 		}
-		return cells[cell-1].setPin(pin, state);
+		cells[cell-1].setPin(pin, state);	
 	}
 	
 	

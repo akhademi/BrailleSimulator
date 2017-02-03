@@ -23,34 +23,30 @@ public class Cell {
 	 * @return boolean value the returns true if pins are set
 	 * based on pinConfig or false if no changes are made due to
 	 * invalid input
+	 * @throws InvalidInputException if pinConfig is not a String of length 8
+	 * or pinConfig does not consist of only 1 and 0
 	 */
-	public boolean setPinConfig(String pinConfig) {
-		boolean valid = true;
-		if (pinConfig.length()!=8){
-			valid = false;
-		}
-		else {
-			for (int i = 0; i<8;i++){
-				if (!(pinConfig.substring(i,i+1).matches("[0-1]"))){
-					valid = false;
-				}
-			}
-			
-		}
+	public void setPinConfig(String pinConfig) throws InvalidInputException {
 		
-		if (valid){
-			for (int i = 0; i <pins.length; i++){
-				if (pinConfig.charAt(i)== '1'){
-					pins[i].setState(true);
-				}
-				else if (pinConfig.charAt(i)== '0'){
-					pins[i].setState(false);
-				}
-					
-			}
-			return valid;
+		if (pinConfig.length()!=8){
+			throw new InvalidInputException("Pin configuration length does not equal to 8");
 		}
-		return valid;
+	
+		for (int i = 0; i<8;i++){
+			if (!(pinConfig.substring(i,i+1).matches("[0-1]"))){
+				throw new InvalidInputException("Pin configuration length does not consist of only 1 and 0");
+			}
+		}
+			
+		for (int i = 0; i <pins.length; i++){
+			if (pinConfig.charAt(i)== '1'){
+					pins[i].setState(true);
+			}
+			else if (pinConfig.charAt(i)== '0'){
+					pins[i].setState(false);
+			}
+		}
+	
 	}
 	
 	/**
@@ -80,14 +76,14 @@ public class Cell {
 	 * The first pin corresponds with a num of 1 and so on. Change will be unsuccessful
 	 * num exceeds the amount of pins or is less then or equal to 0.
 	 * @param num represent which pin is to be changed
-	 * @param state represent what state the pin should be set to
-	 * @return boolean value that is true if change is successful or false if it is not
+	 * @param state represent what state the pin should be set 
+	 * @throws InvalidInputException if (pin) num exceeds 8 or is equal or less
+	 * than 0
 	 */
-	public boolean setPin(int num, boolean state){
+	public void setPin(int num, boolean state) throws InvalidInputException{
 		if (num>pins.length || num <= 0){
-			return false;
+			throw new InvalidInputException("Invalid pin number");
 		}
 		pins[num-1].setState(state);
-		return true;
 	}
 }

@@ -9,9 +9,9 @@ import javax.swing.JTextField;
 
 
 @SuppressWarnings("serial")
-public class SimView extends JFrame{
+class SimView extends JFrame{
 	private BrailleClient sim;
-	public SimPanel background;
+	private SimPanel panel;
 	private JTextField message;
 	private JButton translateButton;
 	private JButton resetButton;
@@ -20,20 +20,11 @@ public class SimView extends JFrame{
 	//Creates the view and the initial state of GUI.
 	public SimView(BrailleClient test) {
 		super();
-		if (BrailleClient.getInstances()==1){
-			try {
-				throw new TooManyInstanceException();
-			} catch (TooManyInstanceException e) {
-				// TODO Auto-generated catch block
-				System.out.println("Too many instances.");
-				System.exit(1);
-			}
-		}
 		this.sim = test;
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	    background = new SimPanel(sim);
+	    panel = new SimPanel(sim);
 	    setResizable(false);
-	    setContentPane(background);
+	    setContentPane(panel);
 	    this.message = new JTextField("Enter message to be translated to Braille", 60);
 	    this.translateButton = new JButton("Translate");
 	    this.resetButton = new JButton("Reset Cells");
@@ -44,8 +35,8 @@ public class SimView extends JFrame{
 	    this.add(translateButton);
 	    this.add(resetButton);
 	    SimController controller = new SimController(this, sim);
-	    background.drawBraille(sim.getCellConfig());
-	    background.calcCellDimension();
+	    panel.drawBraille(sim.getCellConfig());
+	    panel.calcCellDimension();
 	    
 	}
 	
@@ -61,8 +52,8 @@ public class SimView extends JFrame{
 	
 	//Add key listener to whole GUI
 	public void addButtonListener(KeyListener e) {
-		background.addKeyListener(e);
-		background.setFocusable(true);
+		panel.addKeyListener(e);
+		panel.setFocusable(true);
 		message.addKeyListener(e);
 		message.setFocusable(true);
 		translateButton.addKeyListener(e);
@@ -86,13 +77,13 @@ public class SimView extends JFrame{
 	   * based on received brailleBits configuration.
 	   */
 	  public void drawBraille(String[] brailleBits) {
-		  background.calcCellDimension();
-		  this.background.drawBraille(brailleBits);
+		  panel.calcCellDimension();
+		  this.panel.drawBraille(brailleBits);
 		  validate();
 		  repaint();
 		     try
 		     {
-		          Thread.sleep(40); 
+		          Thread.sleep(50); 
 		     }
 		     catch (Exception e)
 		     {
@@ -108,6 +99,11 @@ public class SimView extends JFrame{
 		  message.setText(buttonEvent);
 		
 	}
+	  
+	  //THIS METHOD IS ONLY HERE FOR TESTING PURPOSES
+	  public SimPanel getPanel(){
+		  return panel;
+	  }
 	  
 	 
 	

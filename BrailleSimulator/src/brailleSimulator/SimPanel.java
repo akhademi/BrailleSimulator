@@ -6,7 +6,7 @@ import java.awt.Toolkit;
 
 import javax.swing.JPanel;
 
-public class SimPanel extends JPanel {
+ class SimPanel extends JPanel {
 	private BrailleClient sim;
 	private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	public final int WIDTH = (int) (screenSize.getWidth()/1.1);

@@ -2,63 +2,105 @@ package brailleSimulator;
 
 import static org.junit.Assert.*;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics2D;
-import java.awt.Toolkit;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
-
 import org.junit.Before;
 import org.junit.Test;
 
 public class BrailleClientTest {
-	
-	private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-	public final int WIDTH = (int) (screenSize.getWidth()/1.1);
-	public final int HEIGHT = (int) (screenSize.getHeight()/2);
-	public final int HEIGHTPERCELL = (int) (screenSize.getHeight()/4);
-	BrailleClient test;
-	
+	BrailleClient a;
+	BrailleClient b;
+	BrailleClient z;
 	@Before
 	public void setUp() throws Exception {
-	
+		a = new BrailleClient (2,2);
+		b = new BrailleClient (30,0);
+		z = new BrailleClient (-19,1);
 	}
 
 	@Test
-	public void testTranslate() throws InterruptedException {
-		test = new BrailleClient(2,2);
-		int widthPerCell = WIDTH /(2+1);
-		int xCoord = 0;
-		int yCoord = (int)(screenSize.getHeight()/9);
-		int [] x = new int [2];
-		xCoord = widthPerCell/2/2;
-		for (int i = 1; i <= 2; i++ ){
-			x[i-1] = xCoord;
-			xCoord = xCoord + widthPerCell + widthPerCell/2;
-		}
+	public void testTranslate() {
+		//a.translate("B2"); Use robot to take screenshot, 16 assert
+		//a.translate("c"); Use robot to take screenshot, 16 assert
+		//a.translate(" &");  use robot Nothing Will change so use same 16 assert as the last one
+		//a.translate(" 1*");  use robot Nothing will change so use same 16 assert as the last one
 		
-		BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
-		Graphics2D g2 = image.createGraphics();
-		test.view.background.paint(g2);
-		g2.dispose();
-		try {
-	
-		    File outputfile = new File("saved.png");
-		    ImageIO.write(image, "png", outputfile); //SAVES PNG so you can check what bufferedimage is getting
-		} catch (IOException e) {}
-		Color mycolor = new Color(image.getRGB(x[0], yCoord));
-		System.out.println(mycolor);
-		mycolor = new Color(image.getRGB(x[1], yCoord));
-		System.out.println(mycolor);
+		//b.translate("u"); Use robot to take screenshot, 8 assert
+		//b.translate("st"); Use robot to take screenshot, 8 assert, no changes
 		
-		test.translate("a "); // If you put it above bufffered image, rectangles will not show
-
+		//MAKE SURE TO ASSERT ERROR MESSAGE IF THERE IS ERROR AND FORMAT THIS
+		//LIKE BRAILLETEST
 	}
 
+	@Test
+	public void testButtonEvent() {
+		String hold;
+		
+		hold = b.getView().getTextField();
+		assertEquals("",b.buttonEvent(11));
+		assertEquals(hold,b.getView().getTextField());
+		assertEquals("Button 10 was pressed\n",b.buttonEvent(10));
+		assertEquals("Button 10 was pressed ",b.getView().getTextField());
+		assertEquals("Button 9 was pressed\n",b.buttonEvent(9));
+		assertEquals("Button 9 was pressed ",b.getView().getTextField());
+		assertEquals("Button 8 was pressed\n",b.buttonEvent(8));
+		assertEquals("Button 8 was pressed ",b.getView().getTextField());
+		assertEquals("Button 7 was pressed\n",b.buttonEvent(7));
+		assertEquals("Button 7 was pressed ",b.getView().getTextField());
+		assertEquals("Button 6 was pressed\n",b.buttonEvent(6));
+		assertEquals("Button 6 was pressed ",b.getView().getTextField());
+		assertEquals("Button 5 was pressed\n",b.buttonEvent(5));
+		assertEquals("Button 5 was pressed ",b.getView().getTextField());
+		assertEquals("Button 4 was pressed\n",b.buttonEvent(4));
+		assertEquals("Button 4 was pressed ",b.getView().getTextField());
+		assertEquals("Button 3 was pressed\n",b.buttonEvent(3));
+		assertEquals("Button 3 was pressed ",b.getView().getTextField());
+		assertEquals("Button 2 was pressed\n",b.buttonEvent(2));
+		assertEquals("Button 2 was pressed ",b.getView().getTextField());
+		assertEquals("Button 1 was pressed\n",b.buttonEvent(1));
+		assertEquals("Button 1 was pressed ",b.getView().getTextField());
+		hold = b.getView().getTextField();
+		assertEquals("",b.buttonEvent(0));
+		assertEquals(hold,b.getView().getTextField());
+		
+		hold = a.getView().getTextField();
+		assertEquals("",a.buttonEvent(0));
+		assertEquals(hold,a.getView().getTextField());
+		assertEquals("Button 2 was pressed\n",a.buttonEvent(2));
+		assertEquals("Button 2 was pressed ",a.getView().getTextField());
+		assertEquals("Button 1 was pressed\n",a.buttonEvent(1));
+		assertEquals("Button 1 was pressed ",a.getView().getTextField());
+		hold = a.getView().getTextField();
+		assertEquals("",a.buttonEvent(3));
+		assertEquals(hold,a.getView().getTextField());
+		
+		
+		
+		//USE THE ROBOT TO PRESS AND RELEASE F2 F1 F3 F4 and ETC
+		// ASSERT THE TEXTBOX CONTAINS THE SENTENCE
+		//assertEquals("Button 2 was pressed\n",a.buttonEvent(2)); IF IT IS VALID
+		
+		//FOR BUTTONS THAT ARRE NOT ACTIVATED have hold=getView().getTextField();
+		//Use robot to press inactivated button
+		//Then confirm message in textbox did not change 
+		//assertEquals(hold,a.getView().getTextField());
+	}
 
+	@Test
+	public void testClearAllCells() {
+		//a.translate("1d");
+		//a.clearAllCells();
+		
+		//b.translate("d");
+		//b.clearAllCells();
+		
+		//LOOK AT BRAILLE TEST Instead of asserting all 0000000
+		//Take pic with robot and assert all cell colour are red
+	}
+
+	@Test
+	public void testSetCellPin() {
+		//USE THE SAME TEST CASES FROM BRAILLETEST
+		//INSTEAD OF ASSERT PINCONFIG, YOU NEED TO USE ROBOT
+		//TAKE SCREEN SHOT AND CONFIRM THE PINCONFIG LIKE YOU DID FOR TRANSLATE
+	}
 
 }

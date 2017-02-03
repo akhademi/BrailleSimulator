@@ -6,8 +6,8 @@ import java.awt.event.KeyListener;
 
 
 
-public class SimController {
-	public SimView view;
+ class SimController {
+	private SimView view;
 	private BrailleClient sim;
 	
 	//Creates the controller.
@@ -31,15 +31,12 @@ public class SimController {
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			boolean error = !(sim.translate(view.getTextField()));
 			
-			if (error){
-				view.messageError();
-			}
-			else{
-				
+			try {
+				sim.translate(view.getTextField());
 				view.drawBraille(sim.getCellConfig());
-				
+			} catch (InvalidInputException e1) {
+				view.messageError();
 			}
 		}
 	}
