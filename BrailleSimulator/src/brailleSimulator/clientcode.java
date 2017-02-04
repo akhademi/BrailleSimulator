@@ -4,7 +4,7 @@ public class clientcode {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		BrailleClient b = new BrailleClient (5,5); 
+		BrailleClient b = new BrailleClient (2,0); 
 		/*try {
 			b.translate("ab");
 		} catch (InvalidInputException e) {
