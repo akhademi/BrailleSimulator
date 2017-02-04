@@ -1,7 +1,7 @@
 package brailleSimulator;
 
 public class BrailleClient extends Braille{
-		private SimView view;
+		public SimView view;
 
 		
 	/**
@@ -108,3 +108,4 @@ public class BrailleClient extends Braille{
 		return view;
 	}
 }
+

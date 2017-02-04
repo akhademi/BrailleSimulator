@@ -11,7 +11,7 @@ import javax.swing.JTextField;
 @SuppressWarnings("serial")
 class SimView extends JFrame{
 	private BrailleClient sim;
-	private SimPanel panel;
+	public SimPanel panel;
 	private JTextField message;
 	private JButton translateButton;
 	private JButton resetButton;

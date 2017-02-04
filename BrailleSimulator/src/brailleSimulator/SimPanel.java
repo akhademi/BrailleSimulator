@@ -3,6 +3,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Toolkit;
+import java.awt.Point;
 
 import javax.swing.JPanel;
 
@@ -17,6 +18,8 @@ import javax.swing.JPanel;
 	private boolean drawCell = false;
 	private boolean drawBraille = false;
 	public final int HEIGHTPERCELL = (int) (screenSize.getHeight()/4);
+	public int xCoordinate[][];
+	public int yCoordinate[][];
 	
 	//Creates a panel.
 	public SimPanel(BrailleClient sim){
@@ -24,6 +27,8 @@ import javax.swing.JPanel;
 			this.sim = sim;
 			setPreferredSize(new Dimension(WIDTH,HEIGHT));
 			setBackground(Color.WHITE);
+			xCoordinate = new int[sim.getNumCells()][8];
+			yCoordinate = new int[sim.getNumCells()][8];
 	}
 	
 	/* Overrides paintComponent to paint red rectangles (cells), size and number
@@ -50,29 +55,46 @@ import javax.swing.JPanel;
 		if (drawBraille){
 			g.setColor(Color.BLACK);
 			for (int i = 0; i < braille.length; i++ ){
+				xCoordinate[i][0] = x[i];
+				yCoordinate[i][0] = yCoord;
 				if (braille[i].charAt(0)== '1'){
-					g.fillRect(x[i], yCoord, widthPerCell/2, HEIGHTPERCELL/4);
+					g.fillRect(xCoordinate[i][0], yCoordinate[i][0], widthPerCell/2, HEIGHTPERCELL/4);
 				}
+				xCoordinate[i][1] = x[i] + widthPerCell/2;
+				yCoordinate[i][1] = yCoord;
 				if (braille[i].charAt(1)== '1'){
-					g.fillRect(x[i] + widthPerCell/2, yCoord, widthPerCell/2, HEIGHTPERCELL/4);
+					g.fillRect(xCoordinate[i][1], yCoordinate[i][1], widthPerCell/2, HEIGHTPERCELL/4);
+					
 				}
+				xCoordinate[i][2] = x[i];
+				yCoordinate[i][2] = yCoord + HEIGHTPERCELL/4;
 				if (braille[i].charAt(2)== '1'){
-					g.fillRect(x[i], yCoord+HEIGHTPERCELL/4, widthPerCell/2, HEIGHTPERCELL/4);
+					g.fillRect(xCoordinate[i][2], yCoordinate[i][2], widthPerCell/2, HEIGHTPERCELL/4);
 				}
+				xCoordinate[i][3] = x[i] + widthPerCell/2;
+				yCoordinate[i][3] = yCoord + HEIGHTPERCELL/4;
 				if (braille[i].charAt(3)== '1'){
-					g.fillRect(x[i] + widthPerCell/2, yCoord+HEIGHTPERCELL/4, widthPerCell/2, HEIGHTPERCELL/4);
+					g.fillRect(xCoordinate[i][3], yCoordinate[i][3], widthPerCell/2, HEIGHTPERCELL/4);
 				}
+				xCoordinate[i][4] = x[i];
+				yCoordinate[i][4] = yCoord + 2*HEIGHTPERCELL/4;
 				if (braille[i].charAt(4)== '1'){
-					g.fillRect(x[i], yCoord+2*HEIGHTPERCELL/4, widthPerCell/2,HEIGHTPERCELL/4);
+					g.fillRect(xCoordinate[i][4], yCoordinate[i][4], widthPerCell/2,HEIGHTPERCELL/4);
 				}
+				xCoordinate[i][5] = x[i] + widthPerCell/2;
+				yCoordinate[i][5] = yCoord +2*HEIGHTPERCELL/4;
 				if (braille[i].charAt(5)== '1'){
-					g.fillRect(x[i] + widthPerCell/2, yCoord+2*HEIGHTPERCELL/4, widthPerCell/2, HEIGHTPERCELL/4);
+					g.fillRect(xCoordinate[i][5], yCoordinate[i][5], widthPerCell/2, HEIGHTPERCELL/4);
 				}
+				xCoordinate[i][6] = x[i];
+				yCoordinate[i][6] = yCoord + 3*HEIGHTPERCELL/4;
 				if (braille[i].charAt(6)== '1'){
-					g.fillRect(x[i], yCoord+3*HEIGHTPERCELL/4, widthPerCell/2,HEIGHTPERCELL/4);
+					g.fillRect(xCoordinate[i][6], yCoordinate[i][6], widthPerCell/2,HEIGHTPERCELL/4);
 				}
+				xCoordinate[i][7] = x[i] + widthPerCell/2;
+				yCoordinate[i][7] = yCoord +3*HEIGHTPERCELL/4;
 				if (braille[i].charAt(7)== '1'){
-					g.fillRect(x[i] + widthPerCell/2, yCoord+3*HEIGHTPERCELL/4, widthPerCell/2, HEIGHTPERCELL/4);
+					g.fillRect(xCoordinate[i][7], yCoordinate[i][7], widthPerCell/2, HEIGHTPERCELL/4);
 				}
 				
 			}
