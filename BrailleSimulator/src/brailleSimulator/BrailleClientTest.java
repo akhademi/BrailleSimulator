@@ -94,9 +94,23 @@ public class BrailleClientTest {
 	    try {
 			a.translate("&");
 		} catch (InvalidInputException e2) {
-			assertArrayEquals(cellColor, expectedCell);
 			assertEquals("Message contains invalid symbols", e2.getMessage());
 		}
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	    try {
+	    	
+	    	bi = null;
+	        bi = new Robot().createScreenCapture( region );
+	       
+	    } catch (AWTException ex) {}
+	    assertArrayEquals(cellColor, expectedCell);
+	    
+	    
   
  
 	try {
@@ -163,13 +177,24 @@ public class BrailleClientTest {
     }
     assertArrayEquals(cellColor2, expectedCell2);
     try {
-		a.translate("1*");
+		b.translate("1*");
 	} catch (InvalidInputException e2) {
-		assertArrayEquals(cellColor2, expectedCell2);
-		assertEquals("Message contains invalid symbols", e2.getMessage());
+		
 	}
-   
+    try {
+		Thread.sleep(1000);
+	} catch (InterruptedException e1) {
+		// TODO Auto-generated catch block
+		e1.printStackTrace();
 	}
+	
+    try {
+    	bi = null;
+        bi = new Robot().createScreenCapture( region );
+    } catch (AWTException ex) {}
+    	assertArrayEquals(cellColor2, expectedCell2);
+	}
+	
 	
 	@Test
 	public void testButtonEvent() {
@@ -286,7 +311,6 @@ public class BrailleClientTest {
 			e3.printStackTrace();
 		}
 	    BufferedImage bi = null;
-
     	try {
 			a.translate("1d");
 			a.clearAllCells();
@@ -309,7 +333,6 @@ public class BrailleClientTest {
 		    	int x = a.getView().getPanel().getXCoordinate()[j][i];
 		    	int y = a.getView().getPanel().getYCoordinate()[j][i];
 		    	cellColor[j][i] = new Color(bi.getRGB(x, y));
-		    	//System.out.println("j=" + j + " i=" + i + " x=" + x + " y=" + y + " color = "+ cellColor[j][i]);
 		    }
 	    }
 	    assertArrayEquals(cellColor, expectedCell);
@@ -425,7 +448,7 @@ public class BrailleClientTest {
 				a.setCellPin(1, 6, false);
 				a.setCellPin(1, 7, false);
 				a.setCellPin(1, 8, false);
-				a.setCellPin(2, 1, true);
+				a.setCellPin(-2, 1, true);
 				a.setCellPin(2, 2, true);
 				a.setCellPin(2, 3, false);
 				a.setCellPin(2, 4, true);
@@ -434,10 +457,13 @@ public class BrailleClientTest {
 				a.setCellPin(2, 7, false);
 				a.setCellPin(-2, 8, false);
 				
-			} catch (InvalidInputException e2) {
-				assertArrayEquals(cellColor, expectedCell);
-				assertEquals("Invalid cell number", e2.getMessage());
-			}
+			} catch (InvalidInputException e2) {}
+		    try {
+		    	bi = null;
+		        bi = new Robot().createScreenCapture( region );
+		    } catch (AWTException ex) {}
+		    assertArrayEquals(cellColor, expectedCell);
+		    
 		    
 		    b = new BrailleClient (30,0);
 		    try {
@@ -474,21 +500,23 @@ public class BrailleClientTest {
 			    	cellColor1[j][i] = new Color(bi.getRGB(x, y));
 			    }
 		    }
-		    assertArrayEquals(cellColor1, expectedCell1);
+		    	assertArrayEquals(cellColor1, expectedCell1);
 		    try {
-				b.translate("a");
+				b.translate("q");
 				b.setCellPin(-1, 10, true);
 				b.setCellPin(1, 2, true);
 				b.setCellPin(1, 3, true);
 				b.setCellPin(1, 4, true);
 				b.setCellPin(1, 5, true);
-				b.setCellPin(1, 6, false);
+				b.setCellPin(1, -6, false);
 				b.setCellPin(1, 7, false);
 				b.setCellPin(1, 8, false);
-			} catch (InvalidInputException e2) {
-				assertArrayEquals(cellColor1, expectedCell1);
-				assertEquals("Invalid cell number", e2.getMessage());
-			}
-	
+			} catch (InvalidInputException e2) {}
+		    
+		    try {
+		    	bi = null;
+		        bi = new Robot().createScreenCapture( region );
+		    } catch (AWTException ex) {}
+		    assertArrayEquals(cellColor1, expectedCell1);
 	}
 }
