@@ -4,16 +4,16 @@ public class Pin {
 	private boolean state;
 	
 	/**
-	 * Creates a pin with a state of false.
+	 * Creates a pin with a an initial state of false.
 	 */
 	public Pin(){
 		state = false;
 	}
 	
 	/**
-	 * Sets the pin to a certain state.
-	 * @param state a boolean value that represent what the pin 
-	 * state should be set to
+	 * Sets the pin to a certain boolean state.
+	 * @param state a boolean value that represent what the pin state 
+	 * should be set to
 	 */
 	public void setState(boolean state){
 		this.state = state;

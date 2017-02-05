@@ -5,15 +5,15 @@ public class Button {
 	private int buttonNum;
 	
 	/**
-	 * Creates a button with given buttonNum.
-	 * @param buttonNum an integer that determine what number is the button.
+	 * Creates a button with a button number same as the argument.
+	 * @param buttonNum an integer that determine what number the button is
 	 */
 	public Button(int buttonNum){
 		this.buttonNum = buttonNum;
 		}
 	
 	/**
-	 * Return button number.
+	 * Returns the button number.
 	 * @return an integer representing what number the button is
 	 */
 	public int getButtonNum(){

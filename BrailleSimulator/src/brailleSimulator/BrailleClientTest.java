@@ -47,8 +47,8 @@ public class BrailleClientTest {
 		
 		a = new BrailleClient (2,2);
 		Point p = new Point(0, 0);
-	    SwingUtilities.convertPointToScreen(p, a.view.panel);
-	    Rectangle region = a.view.panel.getBounds();
+	    SwingUtilities.convertPointToScreen(p, a.getView().getPanel());
+	    Rectangle region = a.getView().getPanel().getBounds();
 	    region.x = p.x;
 	    region.y = p.y;
 
@@ -56,15 +56,12 @@ public class BrailleClientTest {
 			Thread.sleep(1000);
 		} catch (InterruptedException e3) {
 			// TODO Auto-generated catch block
-			e3.printStackTrace();
 		}
 	    BufferedImage bi = null;
 
     	try {
 			a.translate("B2");
 		} catch (InvalidInputException e2) {
-			// TODO Auto-generated catch block
-			e2.printStackTrace();
 		}
     	try {
 			Thread.sleep(1000);
@@ -86,8 +83,8 @@ public class BrailleClientTest {
 	    };
 	    for (int j=0;j<a.getNumCells();j++) {
 		    for (int i = 0; i<8; i++) {
-		    	int x = a.getView().panel.xCoordinate[j][i];
-		    	int y = a.getView().panel.yCoordinate[j][i];
+		    	int x = a.getView().getPanel().getXCoordinate()[j][i];
+		    	int y = a.getView().getPanel().getYCoordinate()[j][i];
 		    	cellColor[j][i] = new Color(bi.getRGB(x, y));
 		    	
 		    }
@@ -122,8 +119,8 @@ public class BrailleClientTest {
     };
     for (int j=0;j<a.getNumCells();j++) {
 	    for (int i = 0; i<8; i++) {
-	    	int x = a.getView().panel.xCoordinate[j][i];
-	    	int y = a.getView().panel.yCoordinate[j][i];
+	    	int x = a.getView().getPanel().getXCoordinate()[j][i];
+	    	int y = a.getView().getPanel().getYCoordinate()[j][i];
 	    	cellColor1[j][i] = new Color(bi.getRGB(x, y));
 	    }
    
@@ -158,8 +155,8 @@ public class BrailleClientTest {
     };
     for (int j=0;j<b.getNumCells();j++) {
 	    for (int i = 0; i<8; i++) {
-	    	int x = b.getView().panel.xCoordinate[j][i];
-	    	int y = b.getView().panel.yCoordinate[j][i];
+	    	int x = b.getView().getPanel().getXCoordinate()[j][i];
+	    	int y = b.getView().getPanel().getYCoordinate()[j][i];
 	    	cellColor2[j][i] = new Color(bi.getRGB(x, y));
 	    	
 	    }
@@ -277,8 +274,8 @@ public class BrailleClientTest {
 	public void testClearAllCells() {
 		a = new BrailleClient(2,2);
 		Point p = new Point(0, 0);
-	    SwingUtilities.convertPointToScreen(p, a.view.panel);
-	    Rectangle region = a.view.panel.getBounds();
+	    SwingUtilities.convertPointToScreen(p, a.getView().getPanel());
+	    Rectangle region = a.getView().getPanel().getBounds();
 	    region.x = p.x;
 	    region.y = p.y;
 
@@ -309,8 +306,8 @@ public class BrailleClientTest {
 	    };
 	    for (int j=0;j<a.getNumCells();j++) {
 		    for (int i = 0; i<8; i++) {
-		    	int x = a.getView().panel.xCoordinate[j][i];
-		    	int y = a.getView().panel.yCoordinate[j][i];
+		    	int x = a.getView().getPanel().getXCoordinate()[j][i];
+		    	int y = a.getView().getPanel().getYCoordinate()[j][i];
 		    	cellColor[j][i] = new Color(bi.getRGB(x, y));
 		    	//System.out.println("j=" + j + " i=" + i + " x=" + x + " y=" + y + " color = "+ cellColor[j][i]);
 		    }
@@ -345,8 +342,8 @@ public class BrailleClientTest {
 	    };
 	    for (int j=0;j<b.getNumCells();j++) {
 		    for (int i = 0; i<8; i++) {
-		    	int x = b.getView().panel.xCoordinate[j][i];
-		    	int y = b.getView().panel.yCoordinate[j][i];
+		    	int x = b.getView().getPanel().getXCoordinate()[j][i];
+		    	int y = b.getView().getPanel().getYCoordinate()[j][i];
 		    	cellColor1[j][i] = new Color(bi.getRGB(x, y));
 		    }
 	    }
@@ -359,8 +356,8 @@ public class BrailleClientTest {
 		
 		a = new BrailleClient (2,2);
 		Point p = new Point(0, 0);
-	    SwingUtilities.convertPointToScreen(p, a.view.panel);
-	    Rectangle region = a.view.panel.getBounds();
+	    SwingUtilities.convertPointToScreen(p, a.getView().getPanel());
+	    Rectangle region = a.getView().getPanel().getBounds();
 	    region.x = p.x;
 	    region.y = p.y;
 
@@ -411,8 +408,8 @@ public class BrailleClientTest {
 		    };
 		    for (int j=0;j<a.getNumCells();j++) {
 			    for (int i = 0; i<8; i++) {
-			    	int x = a.getView().panel.xCoordinate[j][i];
-			    	int y = a.getView().panel.yCoordinate[j][i];
+			    	int x = a.getView().getPanel().getXCoordinate()[j][i];
+			    	int y = a.getView().getPanel().getYCoordinate()[j][i];
 			    	cellColor[j][i] = new Color(bi.getRGB(x, y));
 			    }
 		    }
@@ -472,8 +469,8 @@ public class BrailleClientTest {
 		    };
 		    for (int j=0;j<b.getNumCells();j++) {
 			    for (int i = 0; i<8; i++) {
-			    	int x = b.getView().panel.xCoordinate[j][i];
-			    	int y = b.getView().panel.yCoordinate[j][i];
+			    	int x = b.getView().getPanel().getXCoordinate()[j][i];
+			    	int y = b.getView().getPanel().getYCoordinate()[j][i];
 			    	cellColor1[j][i] = new Color(bi.getRGB(x, y));
 			    }
 		    }
@@ -495,5 +492,3 @@ public class BrailleClientTest {
 	
 	}
 }
-
-

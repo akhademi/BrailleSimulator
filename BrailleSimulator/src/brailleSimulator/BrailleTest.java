@@ -112,6 +112,14 @@ public class BrailleTest {
 		d = a.getCellConfig();
 		assertArrayEquals(c,d);
 		
+		try {
+			a.translate("C13232");
+		} catch (InvalidInputException e1) {
+		}
+		
+		d = a.getCellConfig();
+		assertArrayEquals(c,d);
+		
 		String [] e = {"00000000"};
 		String [] f;
 		f = b.getCellConfig();
@@ -231,6 +239,13 @@ public class BrailleTest {
 			assertEquals("Invalid cell number", e1.getMessage());
 		}
 
+		try {
+			b.setCellPin(1, 5, true);
+			assertArrayEquals(f,b.getCellConfig());
+		} catch (InvalidInputException e1) {
+			fail("InvalidInputException should not have been thrown.");
+		}
+		
 		try {
 			b.setCellPin(1, 5, true);
 			assertArrayEquals(f,b.getCellConfig());

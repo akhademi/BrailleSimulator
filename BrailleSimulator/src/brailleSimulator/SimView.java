@@ -11,13 +11,13 @@ import javax.swing.JTextField;
 @SuppressWarnings("serial")
 class SimView extends JFrame{
 	private BrailleClient sim;
-	public SimPanel panel;
+	private SimPanel panel;
 	private JTextField message;
 	private JButton translateButton;
 	private JButton resetButton;
 	private Font f= new Font("Arial", Font.BOLD, 30);
 	
-	//Creates the view and the initial state of GUI.
+	//Creates the view and the initial state of the GUI.
 	public SimView(BrailleClient test) {
 		super();
 		this.sim = test;
@@ -40,17 +40,17 @@ class SimView extends JFrame{
 	    
 	}
 	
-	//Add listener to "Translate" button.
+	//Adds action listener to the "Translate" button.
 	public void addTranslateListener(ActionListener e) {
 	    this.translateButton.addActionListener(e);
-		}
+	}
 	
-	//Add listener to "Reset Cells" button.
-		public void addResetListener(ActionListener e) {
-		    this.resetButton.addActionListener(e);
-			}
+	//Adds action listener to the "Reset Cells" button.
+	public void addResetListener(ActionListener e) {
+		this.resetButton.addActionListener(e);
+	}
 	
-	//Add key listener to whole GUI
+	//Adds key listener to the whole GUI
 	public void addButtonListener(KeyListener e) {
 		panel.addKeyListener(e);
 		panel.setFocusable(true);
@@ -60,50 +60,47 @@ class SimView extends JFrame{
 		translateButton.setFocusable(true);
 		resetButton.addKeyListener(e);
 		resetButton.setFocusable(true);
-		}
+	}
 	
-	//Retrieves text in text box.
+	//Retrieves text in the text box of the GUI.
 	public String getTextField(){
 		return message.getText();
-		}
+	}
   
 	//Sets an error message in the text box.
 	public void messageError(){
 		message.setText("Error: Message length greater than cell number or invalid symbol");
-		}
+	}
 	
-	  /*
-	   * Forces Java to repaint with corresponding pin configuration
-	   * based on received brailleBits configuration.
-	   */
-	  public void drawBraille(String[] brailleBits) {
-		  panel.calcCellDimension();
-		  this.panel.drawBraille(brailleBits);
-		  validate();
-		  repaint();
-		     try
-		     {
-		          Thread.sleep(50); 
-		     }
-		     catch (Exception e)
-		     {
-		          e.printStackTrace();
-		     }
-	  }
+	/*
+	 * Forces Java to repaint the GUI with the pin configuration
+	 * specified by brailleBits.
+	 */
+	public void drawBraille(String[] brailleBits) {
+		panel.calcCellDimension();
+		this.panel.drawBraille(brailleBits);
+		validate();
+		repaint();
+		try{
+			Thread.sleep(50); 
+		} catch (Exception e){
+			e.printStackTrace();
+		}
+	}
 	  
-	  /* Outputs a message to text box telling which of the activated buttons
-	   * was pressed and to the console.
-	   */
-	  public void setButtonEvent(String buttonEvent) {
-		  System.out.print(buttonEvent);
-		  message.setText(buttonEvent);
+	/* Outputs a message to text box telling which of the activated buttons
+	 * was pressed. Message is also output to the console.
+	 */
+	public void setButtonEvent(String buttonEvent) {
+		System.out.print(buttonEvent);
+		message.setText(buttonEvent);
 		
 	}
 	  
-	  //THIS METHOD IS ONLY HERE FOR TESTING PURPOSES
-	  public SimPanel getPanel(){
-		  return panel;
-	  }
+	//THIS METHOD IS ONLY HERE FOR TESTING PURPOSES
+	public SimPanel getPanel(){
+		return panel;
+	}
 	  
 	 
 	

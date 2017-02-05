@@ -11,21 +11,20 @@ import java.awt.event.KeyListener;
 	private BrailleClient sim;
 	
 	//Creates the controller.
-	public SimController(SimView view, BrailleClient sim)
-	  {
+	public SimController(SimView view, BrailleClient sim){
 		this.sim = sim;
 	    this.view = view;
 	    this.view.addTranslateListener(new TranslateListener());
 	    this.view.addResetListener(new ResetListener());
 	    this.view.addButtonListener(new ButtonListener());
-	   }
+	}
 	
 	
 	private class TranslateListener implements ActionListener{
 		
-		/*Attempts to translate what is in the text box in the GUI
+		/* Attempts to translate what is in the text box in the GUI
 		 * if "Translate" is clicked on. The message is either translated
-		 * and stored and the GUI updated or an error message will be
+		 * and stored and the GUI is updated or an error message will be
 		 * displayed in the text if message to be translated does not
 		 * fulfill the criteria in the translate method of BrailleSimulator*/ 
 		
@@ -42,9 +41,9 @@ import java.awt.event.KeyListener;
 	}
 	
 	
-private class ResetListener implements ActionListener{
+	private class ResetListener implements ActionListener{
 		
-		/*Clears all cells.*/ 
+		/*Clears all cells when "Reset Cells" is pressed.*/ 
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -54,11 +53,12 @@ private class ResetListener implements ActionListener{
 	
 	private class ButtonListener implements KeyListener{
 		
-		/*Determines which keys were pressed and maps each key to a number.
-		 * Here, F1 maps to 1, F2 to 2 and all the way to F10. Based on how
-		 * many buttons are activated on the simulator, this method will result in an 
-		 * output determining which button was pressed in the text box 
-		 * of the GUI and in the console.
+		/* Determines which keys were pressed and maps each key to a number.
+		 * Here, F1 maps to 1, F2 to 2 and all the way to F10 which maps to 10. 
+		 * Based on how many buttons are activated on the simulator and which button
+		 * on the keyboard is being pressed, this method will result in a message 
+		 * determining which button was pressed being output in the text 
+		 * box of the GUI and in the console or nothing will happen.
 		 */
 		@Override
 		public void keyPressed(KeyEvent e) {

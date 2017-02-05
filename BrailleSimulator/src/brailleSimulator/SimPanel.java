@@ -3,7 +3,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Toolkit;
-import java.awt.Point;
 
 import javax.swing.JPanel;
 
@@ -18,23 +17,23 @@ import javax.swing.JPanel;
 	private boolean drawCell = false;
 	private boolean drawBraille = false;
 	public final int HEIGHTPERCELL = (int) (screenSize.getHeight()/4);
-	public int xCoordinate[][];
-	public int yCoordinate[][];
+	private int xCoordinate[][];
+	private int yCoordinate[][];
 	
-	//Creates a panel.
+	//Creates a panel with a white background.
 	public SimPanel(BrailleClient sim){
-			super();
-			this.sim = sim;
-			setPreferredSize(new Dimension(WIDTH,HEIGHT));
-			setBackground(Color.WHITE);
-			xCoordinate = new int[sim.getNumCells()][8];
-			yCoordinate = new int[sim.getNumCells()][8];
+		super();
+		this.sim = sim;
+		setPreferredSize(new Dimension(WIDTH,HEIGHT));
+		setBackground(Color.WHITE);
+		xCoordinate = new int[sim.getNumCells()][8];
+		yCoordinate = new int[sim.getNumCells()][8];
 	}
 	
-	/* Overrides paintComponent to paint red rectangles (cells), size and number
-	 * based on number of cells activated and monitor size and
-	 * black rectangles inside cells (raised pins), based on stored pin configuration
-	 * of each cell as required.
+	/* Overrides paintComponent to paint red rectangles (cells) and black rectangles (raised pins). 
+	 * The size and number of red rectangles are based on the number of cells 
+	 * activated and monitor size. Based on stored pin configuration, black rectangles
+	 * (raised pins) are painted inside of each cell as required over the red rectangles.
 	 */
 	@Override
 	public void paintComponent(Graphics g){
@@ -55,64 +54,63 @@ import javax.swing.JPanel;
 		if (drawBraille){
 			g.setColor(Color.BLACK);
 			for (int i = 0; i < braille.length; i++ ){
-				xCoordinate[i][0] = x[i];
-				yCoordinate[i][0] = yCoord;
+				getXCoordinate()[i][0] = x[i];
+				getYCoordinate()[i][0] = yCoord;
 				if (braille[i].charAt(0)== '1'){
-					g.fillRect(xCoordinate[i][0], yCoordinate[i][0], widthPerCell/2, HEIGHTPERCELL/4);
+					g.fillRect(getXCoordinate()[i][0], getYCoordinate()[i][0], widthPerCell/2, HEIGHTPERCELL/4);
 				}
-				xCoordinate[i][1] = x[i] + widthPerCell/2;
-				yCoordinate[i][1] = yCoord;
+				getXCoordinate()[i][1] = x[i] + widthPerCell/2;
+				getYCoordinate()[i][1] = yCoord;
 				if (braille[i].charAt(1)== '1'){
-					g.fillRect(xCoordinate[i][1], yCoordinate[i][1], widthPerCell/2, HEIGHTPERCELL/4);
+					g.fillRect(getXCoordinate()[i][1], getYCoordinate()[i][1], widthPerCell/2, HEIGHTPERCELL/4);
 					
 				}
-				xCoordinate[i][2] = x[i];
-				yCoordinate[i][2] = yCoord + HEIGHTPERCELL/4;
+				getXCoordinate()[i][2] = x[i];
+				getYCoordinate()[i][2] = yCoord + HEIGHTPERCELL/4;
 				if (braille[i].charAt(2)== '1'){
-					g.fillRect(xCoordinate[i][2], yCoordinate[i][2], widthPerCell/2, HEIGHTPERCELL/4);
+					g.fillRect(getXCoordinate()[i][2], getYCoordinate()[i][2], widthPerCell/2, HEIGHTPERCELL/4);
 				}
-				xCoordinate[i][3] = x[i] + widthPerCell/2;
-				yCoordinate[i][3] = yCoord + HEIGHTPERCELL/4;
+				getXCoordinate()[i][3] = x[i] + widthPerCell/2;
+				getYCoordinate()[i][3] = yCoord + HEIGHTPERCELL/4;
 				if (braille[i].charAt(3)== '1'){
-					g.fillRect(xCoordinate[i][3], yCoordinate[i][3], widthPerCell/2, HEIGHTPERCELL/4);
+					g.fillRect(getXCoordinate()[i][3], getYCoordinate()[i][3], widthPerCell/2, HEIGHTPERCELL/4);
 				}
-				xCoordinate[i][4] = x[i];
-				yCoordinate[i][4] = yCoord + 2*HEIGHTPERCELL/4;
+				getXCoordinate()[i][4] = x[i];
+				getYCoordinate()[i][4] = yCoord + 2*HEIGHTPERCELL/4;
 				if (braille[i].charAt(4)== '1'){
-					g.fillRect(xCoordinate[i][4], yCoordinate[i][4], widthPerCell/2,HEIGHTPERCELL/4);
+					g.fillRect(getXCoordinate()[i][4], getYCoordinate()[i][4], widthPerCell/2,HEIGHTPERCELL/4);
 				}
-				xCoordinate[i][5] = x[i] + widthPerCell/2;
-				yCoordinate[i][5] = yCoord +2*HEIGHTPERCELL/4;
+				getXCoordinate()[i][5] = x[i] + widthPerCell/2;
+				getYCoordinate()[i][5] = yCoord +2*HEIGHTPERCELL/4;
 				if (braille[i].charAt(5)== '1'){
-					g.fillRect(xCoordinate[i][5], yCoordinate[i][5], widthPerCell/2, HEIGHTPERCELL/4);
+					g.fillRect(getXCoordinate()[i][5], getYCoordinate()[i][5], widthPerCell/2, HEIGHTPERCELL/4);
 				}
-				xCoordinate[i][6] = x[i];
-				yCoordinate[i][6] = yCoord + 3*HEIGHTPERCELL/4;
+				getXCoordinate()[i][6] = x[i];
+				getYCoordinate()[i][6] = yCoord + 3*HEIGHTPERCELL/4;
 				if (braille[i].charAt(6)== '1'){
-					g.fillRect(xCoordinate[i][6], yCoordinate[i][6], widthPerCell/2,HEIGHTPERCELL/4);
+					g.fillRect(getXCoordinate()[i][6], getYCoordinate()[i][6], widthPerCell/2,HEIGHTPERCELL/4);
 				}
-				xCoordinate[i][7] = x[i] + widthPerCell/2;
-				yCoordinate[i][7] = yCoord +3*HEIGHTPERCELL/4;
+				getXCoordinate()[i][7] = x[i] + widthPerCell/2;
+				getYCoordinate()[i][7] = yCoord +3*HEIGHTPERCELL/4;
 				if (braille[i].charAt(7)== '1'){
-					g.fillRect(xCoordinate[i][7], yCoordinate[i][7], widthPerCell/2, HEIGHTPERCELL/4);
+					g.fillRect(getXCoordinate()[i][7], getYCoordinate()[i][7], widthPerCell/2, HEIGHTPERCELL/4);
 				}
 				
 			}
-			
-			
 			drawBraille = false;
 		}
 	}
 	
-	/*Calculates width of each cell (approximately) based on monitor
-	 * size and makes the paintComponent to redraw the cell when is is called.
+	/* Calculates what the width of each cell should based on monitor
+	 * size and prompts the paintComponent to redraw the cells when
+	 * the paintComponent is called.
 	 */
 	public void calcCellDimension(){
 		widthPerCell = WIDTH /(sim.getNumCells()+1);
 		drawCell = true;
 	}
 	
-	/*Updates the braille configuration in this class and makes the
+	/* Updates the pin configuration of each cell in this class and makes the
 	 * paintComponent, when called, to redraw the pin configuration 
 	 * based on update.
 	 */
@@ -121,6 +119,15 @@ import javax.swing.JPanel;
 		this.braille = braille;
 		drawBraille = true;
 	}
-		
+
+	
+	//BELOW METHODS ARE FOR TESTING PURPOSES
+	public int[][] getXCoordinate() {
+		return xCoordinate;
+	}
+
+	public int[][] getYCoordinate() {
+		return yCoordinate;
+	}	
 		
 }
