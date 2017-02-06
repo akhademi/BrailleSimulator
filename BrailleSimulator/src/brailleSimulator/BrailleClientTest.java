@@ -110,89 +110,86 @@ public class BrailleClientTest {
 	    } catch (AWTException ex) {}
 	    assertArrayEquals(cellColor, expectedCell);
 	    
-	    
-  
- 
-	try {
-		a.translate("c");
-	} catch (InvalidInputException e2) {
+	    try {
+		a.translate("c ");
+	    } catch (InvalidInputException e2) {
 		e2.printStackTrace();
-	}
+	    }
 	
-    try {
+	    try {
     	bi = null;
         bi = new Robot().createScreenCapture( region );
       
-    } catch (AWTException ex) {}
+	    } catch (AWTException ex) {}
     
 	
-    Color cellColor1[][] = new Color [a.getNumCells()][8];
-    Color expectedCell1[][]= new Color [][]  {
+	    Color cellColor1[][] = new Color [a.getNumCells()][8];
+	    Color expectedCell1[][]= new Color [][]  {
     		{Color.black, Color.black, Color.RED , Color.RED ,Color.RED ,Color.RED ,Color.RED ,Color.RED },
             { Color.RED, Color.RED, Color.RED,Color.RED ,Color.RED ,Color.RED ,Color.RED ,Color.RED}
-    };
-    for (int j=0;j<a.getNumCells();j++) {
-	    for (int i = 0; i<8; i++) {
-	    	int x = a.getView().getPanel().getXCoordinate()[j][i];
-	    	int y = a.getView().getPanel().getYCoordinate()[j][i];
-	    	cellColor1[j][i] = new Color(bi.getRGB(x, y));
-	    }
+	    };
+	    for (int j=0;j<a.getNumCells();j++) {
+	    	for (int i = 0; i<8; i++) {
+	    		int x = a.getView().getPanel().getXCoordinate()[j][i];
+	    		int y = a.getView().getPanel().getYCoordinate()[j][i];
+	    		cellColor1[j][i] = new Color(bi.getRGB(x, y));
+	    	}
    
-	}
-    assertArrayEquals(cellColor1, expectedCell1);
+	    }
+	    	assertArrayEquals(cellColor1, expectedCell1);
   
     	b = new BrailleClient (30,0);
     	
-    try {
+    	try {
 		b.translate("u");
-	} catch (InvalidInputException e2) {
+    	} catch (InvalidInputException e2) {
 		// TODO Auto-generated catch block
 		e2.printStackTrace();
-	}
+    	}
     
-    try {
-		Thread.sleep(1000);
-	} catch (InterruptedException e1) {
+    	try {
+    		Thread.sleep(1000);
+    	} catch (InterruptedException e1) {
 		// TODO Auto-generated catch block
 		e1.printStackTrace();
-	}
+    	}
 	
-    try {
-    	bi = null;
-        bi = new Robot().createScreenCapture( region );
-    } catch (AWTException ex) {}
+    	try {
+    		bi = null;
+    		bi = new Robot().createScreenCapture( region );
+    	} catch (AWTException ex) {}
     
 	
-    Color cellColor2[][] = new Color [b.getNumCells()][8];
-    Color expectedCell2[][]= new Color [][]  {
+    	Color cellColor2[][] = new Color [b.getNumCells()][8];
+    	Color expectedCell2[][]= new Color [][]  {
     		{Color.black, Color.RED, Color.RED , Color.RED ,Color.black,Color.black,Color.RED ,Color.RED},
-    };
-    for (int j=0;j<b.getNumCells();j++) {
-	    for (int i = 0; i<8; i++) {
-	    	int x = b.getView().getPanel().getXCoordinate()[j][i];
-	    	int y = b.getView().getPanel().getYCoordinate()[j][i];
-	    	cellColor2[j][i] = new Color(bi.getRGB(x, y));
+    	};
+    	for (int j=0;j<b.getNumCells();j++) {
+    		for (int i = 0; i<8; i++) {
+    			int x = b.getView().getPanel().getXCoordinate()[j][i];
+    			int y = b.getView().getPanel().getYCoordinate()[j][i];
+    			cellColor2[j][i] = new Color(bi.getRGB(x, y));
 	    	
-	    }
-    }
-    assertArrayEquals(cellColor2, expectedCell2);
-    try {
-		b.translate("1*");
-	} catch (InvalidInputException e2) {
+    		}
+    	}
+    		assertArrayEquals(cellColor2, expectedCell2);
+    	try {
+    			b.translate("1*");
+    	} catch (InvalidInputException e2) {
 		
-	}
-    try {
-		Thread.sleep(1000);
-	} catch (InterruptedException e1) {
+    	}
+    	try {
+    		Thread.sleep(1000);
+    	} catch (InterruptedException e1) {
 		// TODO Auto-generated catch block
-		e1.printStackTrace();
-	}
+    		e1.printStackTrace();
+    	}
 	
-    try {
-    	bi = null;
-        bi = new Robot().createScreenCapture( region );
-    } catch (AWTException ex) {}
-    	assertArrayEquals(cellColor2, expectedCell2);
+    	try {
+    		bi = null;
+    		bi = new Robot().createScreenCapture( region );
+    	} catch (AWTException ex) {}
+    		assertArrayEquals(cellColor2, expectedCell2);
 	}
 	
 	
@@ -370,7 +367,7 @@ public class BrailleClientTest {
 		    	cellColor1[j][i] = new Color(bi.getRGB(x, y));
 		    }
 	    }
-	    assertArrayEquals(cellColor1, expectedCell1);
+	    	assertArrayEquals(cellColor1, expectedCell1);
 	
 	}
 
